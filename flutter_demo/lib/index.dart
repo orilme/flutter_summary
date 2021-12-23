@@ -16,6 +16,7 @@ export 'basics/gesture_page.dart';
 export 'basics/event_bus_page.dart';
 export 'basics/notification_page.dart';
 export 'basics/builder_page.dart';
+export 'basics/catch_error_page.dart';
 export 'basics/map_page.dart';
 export 'basics/findRenderObject_page.dart';
 export 'basics/custom/canvas_page.dart';

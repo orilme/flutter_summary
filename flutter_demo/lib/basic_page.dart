@@ -23,13 +23,14 @@ class _BasicPageState extends State<BasicPage> {
     'EventBus': EventBusPage(),
     'Notification': NotificationPage(),
     'Builder和Notification': BuilderPage(),
+    'CatchError': CatchErrorPage(),
 
     /// 自定义绘制
     'CanvasPage': CanvasPage(),
     '自定义绘制-Checkbox': CustomWidgetPage(),
     '自定义绘制-Circle': CustomCircularPage(),
 
-    'Gesture': GesturePage(),
+    'Gesture/Listener/IgnorePointer/AbsorbPointer': GesturePage(),
     'Hero': HeroPage(),
     'Animation': AnimationPage(),
     'AnimatedBuilder': AnimatedBuilderPage(),
