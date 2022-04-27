@@ -10,7 +10,6 @@ final List<Color> colorList = [
 ];
 
 class SliverPage extends StatelessWidget {
-
   Widget renderTitle(String title) {
     return SliverToBoxAdapter(
       child: Padding(
@@ -54,14 +53,14 @@ class SliverPage extends StatelessWidget {
           ),
           this.renderTitle('SliverGrid - delegate'),
           SliverGrid(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5, crossAxisSpacing: 5, mainAxisSpacing: 3),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5, crossAxisSpacing: 5, mainAxisSpacing: 3),
             delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
               return Container(
                 color: Colors.primaries[index % Colors.primaries.length],
               );
             }, childCount: 10),
           ),
+
           /// CustomScrollView只能包含sliver系列组件，如果包含普通的组件如何处理？使用SliverToBoxAdapter包裹
           this.renderTitle('SliverToBoxAdapter'),
           SliverToBoxAdapter(
@@ -79,11 +78,10 @@ class SliverPage extends StatelessWidget {
                 color = Colors.blue;
               }
               return SliverToBoxAdapter(
-                child: Container(
-                  height: 100,
-                  color: color,
-                )
-              );
+                  child: Container(
+                height: 100,
+                color: color,
+              ));
             },
           ),
           this.renderTitle('SliverFixedExtentList\n'
@@ -92,7 +90,7 @@ class SliverPage extends StatelessWidget {
               'SliverFixedExtentList比SliverList更加高效，因为SliverFixedExtentList无需计算子控件的布局。'),
           SliverFixedExtentList(
             delegate: SliverChildBuilderDelegate(
-                  (context, index) => Container(color: colorList[index]),
+              (context, index) => Container(color: colorList[index]),
               childCount: colorList.length,
             ),
             itemExtent: 30,
@@ -102,18 +100,14 @@ class SliverPage extends StatelessWidget {
               'SliverPrototypeExtentList 比SliverList更加高效，因为SliverFixedExtentList无需计算子控件的布局。\n'
               'SliverPrototypeExtentList比SliverFixedExtentList更加灵活，因为SliverPrototypeExtentList不必指定像素高度。'),
           SliverPrototypeExtentList(
-            prototypeItem: Text(
-                "SliverPrototypeExtentList比SliverFixedExtentList更加灵活，因为SliverPrototypeExtentList不必指定像素高度。",
-                style: TextStyle(fontSize: 18, color: Colors.green)
-            ),
+            prototypeItem: Text("SliverPrototypeExtentList比SliverFixedExtentList更加灵活，因为SliverPrototypeExtentList不必指定像素高度。",
+                style: TextStyle(fontSize: 18, color: Colors.green)),
             delegate: SliverChildBuilderDelegate(
-                  (context, index) => Container(
-                    color: colorList[index],
-                    child: Text(
-                        "SliverPrototypeExtentList比SliverFixedExtentList更加灵活，因为SliverPrototypeExtentList不必指定像素高度。",
-                        style: TextStyle(fontSize: 18, color: Colors.black)
-                    ),
-                  ),
+              (context, index) => Container(
+                color: colorList[index],
+                child: Text("SliverPrototypeExtentList比SliverFixedExtentList更加灵活，因为SliverPrototypeExtentList不必指定像素高度。",
+                    style: TextStyle(fontSize: 18, color: Colors.black)),
+              ),
               childCount: colorList.length,
             ),
             // itemExtent: 50,

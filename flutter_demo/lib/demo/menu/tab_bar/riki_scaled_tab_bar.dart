@@ -9,7 +9,7 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_demo/common/screen_util/flutter_screenutil.dart';
+import 'package:flutter_demo/base/utils/screen_util/flutter_screenutil.dart';
 import './riki_underline_tab_indicator.dart';
 import './ui_extension.dart';
 

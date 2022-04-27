@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/riki-http" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/riki-project_config" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/riki-router" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/riki-ui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/riki-webview" vcs="Git" />
+  </component>
+</project>

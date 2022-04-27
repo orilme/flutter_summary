@@ -7,14 +7,15 @@ class DemoPage extends StatefulWidget {
 }
 
 class _DemoPageState extends State<DemoPage> {
-
   final Map<String, Widget> pageMap = {
+    'Uikit': UikitPage(),
+    'webView': WebViewPage(),
     'Menu': MenuPage(),
     'flutter_slidable': SlidablePage(),
     'ScrollAnimationTo': ScrollAnimationToPage(),
     'scroll_to_index': ScrollToIndexPage(),
-    'audioplayers': AudioplayersPage(),
-    'flustars': FlustarsPage(),
+    'audioPlayers': AudioplayersPage(),
+    'FluStars': FlustarsPage(),
     '二维码': QrCodePage(),
     '相册选择照片': ImagePickerPage(),
   };
@@ -60,9 +61,9 @@ class _DemoPageState extends State<DemoPage> {
 
   void _itemClick(Widget page) {
     Navigator.of(context).push(
-        MaterialPageRoute(builder:(BuildContext context){
+        MaterialPageRoute(builder: (BuildContext context) {
           return page;
-        })
+        }),
     );
   }
 }

@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/basics/event_bus.dart';
+import 'package:riki_router/core/riki_argument_import.dart';
+@RikiArgumentImport()
+import 'package:riki_router/core/riki_route.dart';
 
 /// 事件总线通常用于组件之间状态共享
 /// 事件总线通常实现了订阅者模式，订阅者模式包含发布者和订阅者两种角色，可以通过事件总线来触发事件和监听事件。
 
+@RikiRoute(
+  name: '/event_bus_page',
+  pageRouteType: PageRouteType.cupertino,
+  description: 'EventBusPage',
+)
 class EventBusPage extends StatefulWidget {
   const EventBusPage({Key? key}) : super(key: key);
 

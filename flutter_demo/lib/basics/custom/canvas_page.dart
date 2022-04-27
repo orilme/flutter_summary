@@ -49,7 +49,6 @@ CustomPaint(
 /// 画笔Paint
 /// 在Paint中，我们可以配置画笔的各种属性如粗细、颜色、样式等
 
-
 /// 性能
 /// 1. 尽可能的利用好shouldRepaint返回值
 // 在UI树重新build时，控件在绘制前都会先调用该方法以确定是否有必要重绘；
@@ -61,7 +60,6 @@ CustomPaint(
 // 由于棋盘始终是不变的，用户每次落子时变的只是棋子，但是如果按照上面的代码来实现，每次绘制棋子时都要重新绘制一次棋盘，这是没必要的。
 // 优化的方法就是将棋盘单独抽为一个组件，并设置其shouldRepaint回调值为false，然后将棋盘组件作为背景。
 // 然后将棋子的绘制放到另一个组件中，这样每次落子时只需要绘制棋子。
-
 
 class CanvasPage extends StatefulWidget {
   const CanvasPage({Key? key}) : super(key: key);
@@ -79,6 +77,10 @@ class _CanvasPageState extends State<CanvasPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            CustomPaint(
+              painter: PurseArcPainter(),
+              size: Size.fromHeight(100),
+            ),
             // RepaintBoundary(
             //   child: CustomPaint(
             //     size: Size(300, 300), //指定画布大小
@@ -166,4 +168,34 @@ void drawPieces(Canvas canvas, Rect rect) {
     min(eWidth / 2, eHeight / 2) - 2,
     paint,
   );
+}
+
+class PurseArcPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint _paint = Paint()
+      ..color = Colors.red //画笔颜色
+      ..strokeCap = StrokeCap.butt //画笔笔触类型
+      ..style = PaintingStyle.fill //绘画风格，默认为填充
+      ..strokeWidth = 1.0; //
+
+    final Offset _startPoint = Offset(0, size.height / 3 * 2); //开始位置
+    final Offset _controlPoint1 = Offset(size.width / 4, size.height); //控制点
+    final Offset _controlPoint2 = Offset(3 * size.width / 4, size.height); //控制点
+    final Offset _endPoint = Offset(size.width, size.height / 3 * 2); //结束位置
+
+    final Path _path = Path();
+    _path.moveTo(0, 0);
+    _path.lineTo(_startPoint.dx, _startPoint.dy);
+    _path.cubicTo(_controlPoint1.dx, _controlPoint1.dy, _controlPoint2.dx, _controlPoint2.dy, _endPoint.dx, _endPoint.dy);
+    _path.lineTo(_endPoint.dx, 0);
+    _path.lineTo(0, 0);
+    canvas.drawPath(_path, _paint);
+  }
+
+  @override
+  bool shouldRepaint(PurseArcPainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(PurseArcPainter oldDelegate) => false;
 }

@@ -11,32 +11,30 @@ class _ChangeNotifierPageState extends State<ChangeNotifierPage> {
     return Scaffold(
       appBar: AppBar(title: Text('Provider-ChangeNotifier')),
       body: Center(
-          child: BaoChangeNotifierProvider<CartModel>(
-            data: CartModel(),
-            child: Builder(builder: (context) {
-              return Column(
-                children: <Widget>[
-                  SizedBox(height: 50),
-                  Builder(builder: (context) {
-                    var cart = BaoChangeNotifierProvider.of<CartModel>(context);
-                    return Text("总价: ${cart.totalPrice}");
-                  }),
-                  Builder(builder: (context) {
-                    print("RaisedButton build"); //在后面优化部分会用到
-                    return ElevatedButton(
-                      child: Text("添加商品"),
-                      onPressed: () {
-                        //给购物车中添加商品，添加后总价会更新
-                        BaoChangeNotifierProvider.of<CartModel>(context)
-                            .add(Item(20.0, 1));
-                      },
-                    );
-                  }),
-                ],
-              );
-            }
-            ),
-          ),
+        child: BaoChangeNotifierProvider<CartModel>(
+          data: CartModel(),
+          child: Builder(builder: (context) {
+            return Column(
+              children: <Widget>[
+                SizedBox(height: 50),
+                Builder(builder: (context) {
+                  var cart = BaoChangeNotifierProvider.of<CartModel>(context);
+                  return Text("总价: ${cart.totalPrice}");
+                }),
+                Builder(builder: (context) {
+                  print("RaisedButton build"); //在后面优化部分会用到
+                  return ElevatedButton(
+                    child: Text("添加商品"),
+                    onPressed: () {
+                      // 给购物车中添加商品，添加后总价会更新
+                      BaoChangeNotifierProvider.of<CartModel>(context).add(Item(20.0, 1));
+                    },
+                  );
+                }),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }
@@ -55,8 +53,7 @@ class CartModel extends ChangeNotifier {
   final List<Item> _items = [];
 
   // 购物车中商品的总价
-  double get totalPrice =>
-      _items.fold(0, (value, item) => value + item.count * item.price);
+  double get totalPrice => _items.fold(0, (value, item) => value + item.count * item.price);
 
   // 将 [item] 添加到购物车。这是唯一一种能从外部改变购物车的方法。
   void add(Item item) {

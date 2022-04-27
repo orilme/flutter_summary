@@ -1,16 +1,74 @@
-# imei_plugin_example
+# imei_plugin
 
-Demonstrates how to use the imei_plugin plugin.
+Returns the IMEI (International Mobile Equipment Identity). Return null if IMEI is not available.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+get imei for android devices with validate permission on ejecution time
 
-A few resources to get you started if this is your first Flutter project:
+**Use**
+```dart
+import 'package:imei_plugin/imei_plugin.dart';
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+var imei = await ImeiPlugin.getImei();
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Full example**
+```dart
+import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'package:flutter/services.dart';
+import 'package:imei_plugin/imei_plugin.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String _platformImei = 'Unknown';
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    String platformImei;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      platformImei = await ImeiPlugin.getImei( shouldShowRequestPermissionRationale: false );
+    } on PlatformException {
+      platformImei = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _platformImei = platformImei;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+        ),
+        body: Center(
+          child: Text('Running on: $_platformImei\n'),
+        ),
+      ),
+    );
+  }
+}
+```

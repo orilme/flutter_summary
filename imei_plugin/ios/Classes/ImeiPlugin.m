@@ -1,12 +1,4 @@
 #import "ImeiPlugin.h"
-#if __has_include(<imei_plugin/imei_plugin-Swift.h>)
-#import <imei_plugin/imei_plugin-Swift.h>
-#else
-// Support project import fallback if the generated compatibility header
-// is not copied when this plugin is created as a library.
-// https://forums.swift.org/t/swift-static-libraries-dont-copy-generated-objective-c-header/19816
-#import "imei_plugin-Swift.h"
-#endif
 #import <AdSupport/ASIdentifierManager.h>
 
 @implementation ImeiPlugin
@@ -33,19 +25,19 @@
         result(nil);
     } else if([@"getChannelName" isEqualToString:call.method]){
         result(nil);
-    } else if([@"getMac" isEqualToString:call.method]){
+    }else if([@"getMac" isEqualToString:call.method]){
         result(nil);
-    } else if ([@"getIp" isEqualToString:call.method]){
+    }else if ([@"getIp" isEqualToString:call.method]){
         result(nil);
-    } else if ([@"getUa" isEqualToString:call.method]){
+    }else if ([@"getUa" isEqualToString:call.method]){
         result(nil);
-    } else if([@"getOAID" isEqualToString:call.method]){
+    }  else if([@"getOAID" isEqualToString:call.method]){
         result(nil);
-    } else if ([@"getMethodChannelTestStr" isEqualToString:call.method]) {
-        result(@"哈哈哈哈");
     } else {
         result(FlutterMethodNotImplemented);
     }
+    
+    
 }
 
 @end

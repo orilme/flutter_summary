@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:dokit/dokit.dart';
-import 'package:flutter_demo/common/screen_util/flutter_screenutil.dart';
-import 'package:flutter_demo/widget_page.dart';
+import 'package:flutter_demo/base/utils/screen_util/flutter_screenutil.dart';
 import 'package:flutter_demo/basic_page.dart';
-import 'package:flutter_demo/demo_page.dart';
-import 'package:flutter_demo/skill_page.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_demo/basics/provider/provider_model.dart';
-import 'package:flutter_demo/app/app_plugin.dart';
+import 'package:flutter_demo/common/config.dart';
+import 'package:flutter_demo/demo_page.dart';
+import 'package:flutter_demo/route/flutter_demo_route.dart';
+import 'package:flutter_demo/skill_page.dart';
+import 'package:flutter_demo/widget_page.dart';
+import 'package:provider/provider.dart';
+import 'package:riki_project_config/riki_project_config.dart';
+import 'package:riki_router/riki_router.dart';
+import 'package:riki_router/route/riki_router_delegate.dart';
 
 void main() {
   runMyApp();
 }
 
 void runMyApp() async {
-
   debugProfileBuildsEnabled = true;
-
 
   /*
    * Provider如果与Listenable/一起使用，现在抛出Stream。考虑使用ListenableProvider/ StreamProvider代替。
@@ -32,8 +33,15 @@ void runMyApp() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // await AppConfig.instance.init();
-  // //提前初始化
-  await appPlugin.init();
+  // 提前初始化
+  // await appPlugin.init();
+
+  // 配置初始化
+  RikiProjectConfig.initServer(
+    envType: AppConfig.instance.envType,
+    appType: RikiAppType.staff,
+    log: AppConfig.is_debug,
+  );
 
   // DoKit.runApp(
   //   app: DoKitApp(MyApp()),
@@ -44,10 +52,7 @@ void runMyApp() async {
   final int textSize = 28;
   runApp(
     MultiProvider(
-      providers: [
-        Provider.value(value: textSize),
-        ChangeNotifierProvider.value(value: counter)
-      ],
+      providers: [Provider.value(value: textSize), ChangeNotifierProvider.value(value: counter)],
       child: MyApp(),
     ),
   );
@@ -88,26 +93,57 @@ void runMyApp() async {
 GlobalKey<NavigatorState> globalKey = GlobalKey();
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  MyApp({Key? key}) : super(key: key) {
+    final RikiRouterDelegate _routerDelegate = RikiRouterDelegate(
+      getRouteSettings: getRouteSettings,
+      observers: [],
+    );
+    RikiRouter.instance.init(_routerDelegate);
+  }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      // debugShowCheckedModeBanner: false,
-      // showPerformanceOverlay: true,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: ScreenUtilInit(
-        builder: () {
-          return BottomTabBarPage();
-        },
-        designSize: const Size(375, 667),
-      ),
+    return ScreenUtilInit(
+      builder: () {
+        return MaterialApp.router(
+          title: 'flutter demo',
+          theme: ThemeData(
+            primarySwatch: Colors.red,
+          ),
+          supportedLocales: [
+            const Locale('zh', 'CN'),
+            const Locale('en', 'US'),
+          ],
+          routeInformationParser: RikiRouter.instance.routeInformationParser,
+          routerDelegate: RikiRouter.instance.routerDelegate,
+        );
+      },
+      designSize: const Size(375, 667),
     );
   }
 }
 
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       // debugShowCheckedModeBanner: false,
+//       // showPerformanceOverlay: true,
+//       theme: ThemeData(
+//         primarySwatch: Colors.red,
+//       ),
+//       home: ScreenUtilInit(
+//         builder: () {
+//           return BottomTabBarPage();
+//         },
+//         designSize: const Size(375, 667),
+//       ),
+//     );
+//   }
+// }
+
+@RikiRoute(name: '/')
 class BottomTabBarPage extends StatefulWidget {
   BottomTabBarPage({Key? key}) : super(key: key);
 
@@ -156,4 +192,3 @@ class _BottomTabBarPageState extends State<BottomTabBarPage> {
     );
   }
 }
-

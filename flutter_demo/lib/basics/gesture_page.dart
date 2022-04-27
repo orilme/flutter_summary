@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_demo/index.dart';
 import 'package:flutter_demo/basics/event_bus.dart';
+import 'package:riki_router/riki_router.dart';
 
 /// GestureDetector 嵌套只会执行最上层的 widget
 /// Listener 嵌套只会执行最上层的 widget
@@ -56,7 +57,6 @@ import 'package:flutter_demo/basics/event_bus.dart';
 /// 如果 hitTestSelf 返回 true，则无论子节点中是否有通过命中测试的节点，当前节点自身都会被添加到 HitTestResult 中。
 /// 而 IgnorePointer 和 AbsorbPointer 的区别就是，前者的 hitTestSelf 返回了 false，而后者返回了 true。
 
-
 /// 命中测试是在 PointerDownEvent 事件触发时进行的，一个完成的事件流是 down > move > up (cancle)。
 /// 如果父子组件都监听了同一个事件，则子组件会比父组件先响应事件。
 /// 这是因为命中测试过程是按照深度优先规则遍历的，所以子渲染对象会比父渲染对象先加入 HitTestResult 列表，
@@ -85,9 +85,6 @@ import 'package:flutter_demo/basics/event_bus.dart';
 /// 注意，behavior 为 opaque 和 translucent 时当前组件都会通过命中测试，
 /// 它们的区别是 hitTest() 的返回值（hitTarget ）可能不同，所以它们的区别就看 hitTest() 的返回值会影响什么
 
-
-
-
 class GesturePage extends StatefulWidget {
   const GesturePage({Key? key}) : super(key: key);
 
@@ -96,7 +93,6 @@ class GesturePage extends StatefulWidget {
 }
 
 class _GesturePageState extends State<GesturePage> {
-
   String _operation = "No Gesture detected!"; //保存事件名
 
   TapGestureRecognizer _tapGestureRecognizer = TapGestureRecognizer();
@@ -131,16 +127,19 @@ class _GesturePageState extends State<GesturePage> {
                     onLongPress: () => updateText("LongPress"), //长按
                   ),
                   SizedBox(width: 20),
-                  GestureDetector( //GestureDetector2
-                    onTapUp: (x)=>print("监听父组件 tapUp 手势---2"),
+                  GestureDetector(
+                    //GestureDetector2
+                    onTapUp: (x) => print("监听父组件 tapUp 手势---2"),
                     child: Container(
-                      width:200,
+                      width: 200,
                       height: 80,
                       color: Colors.red,
                       alignment: Alignment.center,
+
                       /// GestureDetector 嵌套只会执行最上层的 widget
-                      child: GestureDetector( //GestureDetector1
-                        onTapUp: (x)=>print("监听子组件 tapUp 手势---1"),
+                      child: GestureDetector(
+                        //GestureDetector1
+                        onTapUp: (x) => print("监听子组件 tapUp 手势---1"),
                         child: Container(
                           width: 50,
                           height: 50,
@@ -188,7 +187,9 @@ class _GesturePageState extends State<GesturePage> {
                     color: Colors.yellow,
                     child: Stack(
                       children: [
-                        IgnorePointer(child: wChild2(1, 50)), /// IgnorePointer
+                        IgnorePointer(child: wChild2(1, 50)),
+
+                        /// IgnorePointer
                         IgnorePointer(child: wChild2(2, 50)),
                       ],
                     ),
@@ -213,7 +214,9 @@ class _GesturePageState extends State<GesturePage> {
                     color: Colors.yellow,
                     child: Stack(
                       children: [
-                        HitTestBlocker(child: wChild3(1, 50)), /// GestureDetector
+                        HitTestBlocker(child: wChild3(1, 50)),
+
+                        /// GestureDetector
                         HitTestBlocker(child: wChild3(2, 50)),
                       ],
                     ),
@@ -225,7 +228,9 @@ class _GesturePageState extends State<GesturePage> {
                     color: Colors.yellow,
                     child: Stack(
                       children: [
-                        wChild3(1, 50), /// GestureDetector
+                        wChild3(1, 50),
+
+                        /// GestureDetector
                         wChild3(2, 50),
                       ],
                     ),
@@ -233,7 +238,8 @@ class _GesturePageState extends State<GesturePage> {
                 ],
               ),
               Padding(padding: EdgeInsets.all(10), child: Text("手势冲突 - Listener")),
-              Listener(  // 将 GestureDetector 换位 Listener 即可
+              Listener(
+                // 将 GestureDetector 换位 Listener 即可
                 onPointerUp: (x) => print("2"),
                 child: Container(
                   width: 200,
@@ -251,7 +257,8 @@ class _GesturePageState extends State<GesturePage> {
                 ),
               ),
               Padding(padding: EdgeInsets.all(10), child: Text("手势冲突 - 自定义手势识别器")),
-              CustomGestureDetector( // 替换 GestureDetector
+              CustomGestureDetector(
+                // 替换 GestureDetector
                 onTap: () => print("手势冲突 - 自定义手势识别器---2"),
                 child: Container(
                   width: 200,
@@ -272,7 +279,7 @@ class _GesturePageState extends State<GesturePage> {
               Text.rich(
                 TextSpan(
                   children: [
-                    TextSpan(text: "董，你好"),
+                    TextSpan(text: "哈哈，你好"),
                     TextSpan(
                       text: "点我变色",
                       style: TextStyle(
@@ -293,10 +300,10 @@ class _GesturePageState extends State<GesturePage> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (BuildContext context) {
-                    return EventBusPage();
-                  }));
+                  RikiRouterDelegate.of(context).pushUri('/event_bus_page');
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                  //   return EventBusPage();
+                  // }));
                 },
                 child: Text('跳转'),
               ),
@@ -387,8 +394,7 @@ class HitTestBlocker extends SingleChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(
-      BuildContext context, RenderHitTestBlocker renderObject) {
+  void updateRenderObject(BuildContext context, RenderHitTestBlocker renderObject) {
     renderObject
       ..up = up
       ..down = down
@@ -405,15 +411,13 @@ class RenderHitTestBlocker extends RenderProxyBox {
 
   @override
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
-
     bool hitTestDownResult = false;
 
     if (!down) {
       hitTestDownResult = hitTestChildren(result, position: position);
     }
 
-    bool pass =
-        hitTestSelf(position) || (hitTestDownResult && size.contains(position));
+    bool pass = hitTestSelf(position) || (hitTestDownResult && size.contains(position));
 
     if (pass) {
       result.add(BoxHitTestEntry(this, position));
@@ -435,10 +439,9 @@ RawGestureDetector CustomGestureDetector({
   return RawGestureDetector(
     child: child,
     gestures: {
-      CustomTapGestureRecognizer:
-      GestureRecognizerFactoryWithHandlers<CustomTapGestureRecognizer>(
-            () => CustomTapGestureRecognizer(),
-            (detector) {
+      CustomTapGestureRecognizer: GestureRecognizerFactoryWithHandlers<CustomTapGestureRecognizer>(
+        () => CustomTapGestureRecognizer(),
+        (detector) {
           detector.onTap = onTap;
         },
       )

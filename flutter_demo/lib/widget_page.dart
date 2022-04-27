@@ -7,7 +7,6 @@ class WidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<WidgetPage> {
-
   final Map<String, Widget> pageMap = {
     'CustomScrollView': CustomScrollViewPage(),
     'SingleChildScrollView': SingleChildScrollViewPage(),
@@ -79,10 +78,8 @@ class _WidgetPageState extends State<WidgetPage> {
   }
 
   void _itemClick(Widget page) {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder:(BuildContext context){
-          return page;
-        })
-    );
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+      return page;
+    }));
   }
 }

@@ -1,3 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.example.imei_plugin">
+          package="com.rioapp.demo.imeiplugin">
+
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
 </manifest>

@@ -33,46 +33,87 @@ dependencies:
 
   imei_plugin:
     path: '../imei_plugin'
+  riki_router:
+    path: '../riki-router'
+  riki_http:
+    path: '../riki-http'
+  riki_project_config:
+    path: '../riki-project_config'
+  ext_storage:
+    path: '../riki_ext_storage-master'
+  riki_uikit:
+    path: '../riki-ui'
+#  riki_webview:
+#    path: '../riki-webview'
+
+  intl: ">=0.17.0"
+
   dokit: ^0.8.0-nullsafety.0
-  provider: 5.0.0
-  pull_to_refresh: ^1.6.3
+  google_fonts: 2.1.0
+  pull_to_refresh: ^2.0.0
   fluttertoast: ^7.1.4
   connectivity: 3.0.6
   shared_preferences: ^2.0.1
+  oktoast: ^3.0.0
+  provider: ^6.0.2
+  #
+  photo_manager: 1.3.10
+  # 相册选择器 目前iOS用
+  image_picker: 0.8.0+1
+  # 仿微信图片选择框架
+  wechat_assets_picker: ^6.0.0
+  # 仿微信相机拍照
+  wechat_camera_picker: 2.4.0
+  # 存储图片到相册 image_gallery_saver
+  image_gallery_saver: 1.7.1
+  # 图片压缩
+  flutter_image_compress: ^1.0.0
+  # 视频压缩 https://github.com/jonataslaw/VideoCompress
+  video_compress: ^3.1.0
+  # 视频封面获取
+  video_thumbnail: ^0.3.3
+  # 动画文件播放器，支持svg  https://github.com/svga/SVGAPlayer-Flutter
+  svgaplayer_flutter: ^2.1.1
+  # 播放器插件
+  #  audioplayers: ^0.19.0
+  # 工具类
+  flustars: ^2.0.1
+  # 启动URL的插件 https://github.com/flutter/plugins/tree/master/packages/url_launcher
+  url_launcher: ^6.0.6
+  # 权限 https://github.com/baseflowit/flutter-permission-handler
+  permission_handler: 8.1.6
   #
   device_info: ^2.0.2
+  # uuid
+  uuid: 3.0.5
   # 钥匙串
   flutter_keychain: 2.0.1
   # 状态栏 https://github.com/mchome/flutter_statusbarcolor
   flutter_statusbarcolor_ns: ^0.3.0-nullsafety
+  # 强制横屏
+  orientation: ^1.3.0
   #
   flutter_staggered_grid_view: 0.3.4
+  #
+  flutter_cache_manager: 3.3.0
+  # 打开本地文件
+  open_file: ^3.2.1
   # 路径管理(https://pub.dev/packages/path_provider)
   path_provider: ^2.0.2
   # 侧滑菜单
   flutter_slidable: 0.6.0
   # 滑动到指定位置
   scroll_to_index: ^2.0.0
-  # 播放器插件
-#  audioplayers: ^0.19.0
-  # uuid
-  uuid: 3.0.5
+  # 获取滑动到位置
+  inview_notifier_list: ^3.0.0
   # 生成二维码
   qr_flutter: ^4.0.0
   # 扫描二维码
   barcode_scan: ^2.0.2
-  # 相册选择器 目前iOS用
-  image_picker: 0.8.0+1
-  # 仿微信图片选择框架
-  wechat_assets_picker: 6.0.0
-  # 仿微信相机拍照
-  wechat_camera_picker: 2.4.0
-  # 动画文件播放器，支持svg  https://github.com/svga/SVGAPlayer-Flutter
-  svgaplayer_flutter: ^2.1.1
+  # Flutter汉字转拼音
+  lpinyin: ^2.0.3
   #
-  photo_manager: 1.3.1
-  # 工具类
-  flustars: ^2.0.1
+  dart_ipify: 1.1.1
   # AzlistView
   # azlistview: ^2.0.0-nullsafety.0
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/common/screen_util/flutter_screenutil.dart';
+import 'package:flutter_demo/base/utils/screen_util/flutter_screenutil.dart';
 
 /// riki空widget
-class RikiEmpty{
+class RikiEmpty {
   /// 普通的空Widget
   static Widget get ui => SizedBox(width: 0, height: 0);
 

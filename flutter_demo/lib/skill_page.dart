@@ -7,7 +7,6 @@ class SkillPage extends StatefulWidget {
 }
 
 class _SkillPageState extends State<SkillPage> {
-
   final Map<String, Widget> pageMap = {
     'ProviderWidget': ProviderWidgetPage(),
     'Key 作用': KeyStudyPage(),
@@ -17,6 +16,7 @@ class _SkillPageState extends State<SkillPage> {
     'FlatButton': PerformanceListOnePage(),
     '自定义 Button': PerformanceListTwoPage(),
     '模拟组件耗时': PerformanceTimeWidgetPage(),
+    '网络请求': NetworkTestPage(),
   };
 
   @override
@@ -27,52 +27,49 @@ class _SkillPageState extends State<SkillPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            tooltip: 'Navigreation',
-            onPressed: () => debugPrint('Navigreation button is pressed'),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          tooltip: 'Navigreation',
+          onPressed: () => debugPrint('Navigreation button is pressed'),
+        ),
+        title: Text("skill"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            tooltip: 'Search',
+            onPressed: () {
+              debugPrint('Search button is pressed');
+            },
           ),
-          title: Text("skill"),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              tooltip: 'Search',
-              onPressed: () {
-                debugPrint('Search button is pressed');
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.more_horiz),
-              tooltip: 'More',
-              onPressed: () => debugPrint('More button is pressed'),
-            )
-          ],
-        ),
-        body: ListView.separated(
-          itemCount: pageMap.length,
-          itemBuilder: (BuildContext context, int index) {
-            String title = pageMap.keys.elementAt(index);
-            return ListTile(
-              title: Text("$title"),
-              onTap: () {
-                _itemClick(index);
-              },
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return index % 2 == 0 ? Divider(color: Colors.green) : Divider(color: Colors.blue);
-          },
-        ),
+          IconButton(
+            icon: Icon(Icons.more_horiz),
+            tooltip: 'More',
+            onPressed: () => debugPrint('More button is pressed'),
+          )
+        ],
+      ),
+      body: ListView.separated(
+        itemCount: pageMap.length,
+        itemBuilder: (BuildContext context, int index) {
+          String title = pageMap.keys.elementAt(index);
+          return ListTile(
+            title: Text("$title"),
+            onTap: () {
+              _itemClick(index);
+            },
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return index % 2 == 0 ? Divider(color: Colors.green) : Divider(color: Colors.blue);
+        },
+      ),
     );
   }
 
   void _itemClick(int index) {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder:(BuildContext context){
-          return pageMap.values.elementAt(index);
-        })
-    );
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+      return pageMap.values.elementAt(index);
+    }));
   }
-
 }

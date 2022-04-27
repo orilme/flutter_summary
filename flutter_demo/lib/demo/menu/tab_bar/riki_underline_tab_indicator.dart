@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/common/screen_util/flutter_screenutil.dart';
+import 'package:flutter_demo/base/utils/screen_util/flutter_screenutil.dart';
 
 // /*
 // * 此类相当于自定义系统的UnderlineTabIndicator
@@ -16,8 +16,7 @@ class RikiUnderlineTabIndicator extends Decoration {
     double width = 2.0,
     this.insets = EdgeInsets.zero,
     this.indicatorWidth = 25,
-  }) ;
-
+  });
 
   /// The color and weight of the horizontal line drawn below the selected tab.
   final BorderSide borderSide;
@@ -54,15 +53,13 @@ class RikiUnderlineTabIndicator extends Decoration {
   }
 
   @override
-  _UnderlinePainter createBoxPainter( [VoidCallback? onChanged]) {
-    return _UnderlinePainter(this, onChanged,indicatorWidth);
+  _UnderlinePainter createBoxPainter([VoidCallback? onChanged]) {
+    return _UnderlinePainter(this, onChanged, indicatorWidth);
   }
 }
 
 class _UnderlinePainter extends BoxPainter {
-  _UnderlinePainter(this.decoration, VoidCallback? onChanged,this.indicatorWidth)
-      :
-        super(onChanged);
+  _UnderlinePainter(this.decoration, VoidCallback? onChanged, this.indicatorWidth) : super(onChanged);
 
   final RikiUnderlineTabIndicator decoration;
   final double indicatorWidth;
@@ -76,8 +73,7 @@ class _UnderlinePainter extends BoxPainter {
     ///这里修改为自己想要宽度
     //取中间坐标
     double cw = (indicator.left + indicator.right) / 2;
-    return Rect.fromLTWH(cw - indicatorWidth / 2,
-        indicator.bottom - borderSide.width, indicatorWidth, borderSide.width);
+    return Rect.fromLTWH(cw - indicatorWidth / 2, indicator.bottom - borderSide.width, indicatorWidth, borderSide.width);
   }
 
   @override
@@ -89,8 +85,7 @@ class _UnderlinePainter extends BoxPainter {
 
     final Rect rect = offset & configuration.size!;
     final TextDirection textDirection = configuration.textDirection!;
-    final Rect indicator =
-    _indicatorRectFor(rect, textDirection).deflate(borderSide.width / 2.5);
+    final Rect indicator = _indicatorRectFor(rect, textDirection).deflate(borderSide.width / 2.5);
     final Paint paint = borderSide.toPaint()..shader = gradient.createShader(indicator);
 
     canvas.drawRRect(
@@ -102,6 +97,5 @@ class _UnderlinePainter extends BoxPainter {
           topRight: Radius.circular(5.w),
         ),
         paint);
-
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/demo/menu/tab_bar/riki_scaled_tab_bar.dart';
-import 'package:flutter_demo/index.dart';
+import 'package:flutter_demo/base/utils/screen_util/flutter_screenutil.dart';
 
 class MenuPage extends StatefulWidget {
   final bool keepAlive;
-  const MenuPage({ this.keepAlive = true});
+  const MenuPage({this.keepAlive = true});
 
   @override
   _MenuPageState createState() => _MenuPageState();
@@ -31,11 +31,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin, Auto
       appBar: AppBar(title: Text('菜单demo')),
       body: Center(
         child: Column(
-          children: [
-            _buildTabBar(),
-            SizedBox(height: 3.h),
-            Expanded(child: _buildContentBody())
-          ],
+          children: [_buildTabBar(), SizedBox(height: 3.h), Expanded(child: _buildContentBody())],
         ),
       ),
     );
@@ -66,12 +62,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin, Auto
   }
 
   Widget _buildContentBody() {
-    final List<Widget> children = [
-      MallTabPage(index: 0),
-      MallTabPage(index: 1),
-      MallTabPage(index: 2),
-      MallTabPage(index: 3)
-    ];
+    final List<Widget> children = [MallTabPage(index: 0), MallTabPage(index: 1), MallTabPage(index: 2), MallTabPage(index: 3)];
     return TabBarView(controller: tabController, children: children);
   }
 
@@ -80,10 +71,9 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin, Auto
 
   @override
   bool get wantKeepAlive => widget.keepAlive;
-
 }
 
-class MallTabPage extends StatefulWidget{
+class MallTabPage extends StatefulWidget {
   final int index;
   const MallTabPage({Key? key, required this.index}) : super(key: key);
 
@@ -104,8 +94,10 @@ class _MallTabPageState extends State<MallTabPage> with AutomaticKeepAliveClient
         children: [
           _build2LvlList(),
           Expanded(
-              child: Container(color: Colors.blue,)//LeafCategoryZoneWidget(index: widget.index,)
-          ),
+              child: Container(
+            color: Colors.blue,
+          ) //LeafCategoryZoneWidget(index: widget.index,)
+              ),
         ],
       ),
     );
@@ -137,15 +129,13 @@ class _MallTabPageState extends State<MallTabPage> with AutomaticKeepAliveClient
   }
 
   @override
-  void initData(BuildContext context) {
-  }
+  void initData(BuildContext context) {}
 
   @override
   bool get wantKeepAlive => true;
 }
 
-class SecondLvlListWidget extends StatefulWidget{
-
+class SecondLvlListWidget extends StatefulWidget {
   ///属于第几个一级类目
   final int index;
 
@@ -155,7 +145,6 @@ class SecondLvlListWidget extends StatefulWidget{
   State<StatefulWidget> createState() {
     return _SecondLvlListWidgetState();
   }
-
 }
 
 class _SecondLvlListWidgetState extends State<SecondLvlListWidget> {
@@ -168,20 +157,22 @@ class _SecondLvlListWidgetState extends State<SecondLvlListWidget> {
     return ListView(
       shrinkWrap: true,
       padding: EdgeInsets.zero,
-      children: List.generate(5, (index)
-      => GestureDetector(onTap: () {
-
-      },child: SecondLvlItemWidget(index: index,),)),
+      children: List.generate(
+          5,
+          (index) => GestureDetector(
+                onTap: () {},
+                child: SecondLvlItemWidget(
+                  index: index,
+                ),
+              )),
     );
   }
 
   @override
-  void initData(BuildContext context) {
-  }
+  void initData(BuildContext context) {}
 }
 
-class SecondLvlItemWidget extends StatefulWidget{
-
+class SecondLvlItemWidget extends StatefulWidget {
   ///属于二级类目的第几个
   final int index;
 
@@ -199,11 +190,9 @@ class SecondLvlItemWidget extends StatefulWidget{
   State<StatefulWidget> createState() {
     return _SecondLvlItemWidgetState();
   }
-
 }
 
 class _SecondLvlItemWidgetState extends State<SecondLvlItemWidget> {
-
   ///是否是选中的
   bool isChosen(int value) => value == widget.index;
 
@@ -215,8 +204,8 @@ class _SecondLvlItemWidgetState extends State<SecondLvlItemWidget> {
   final TextStyle unSelectedStyle = TextStyle(color: const Color(0xFF666666), fontSize: 14.sp);
 
   BorderRadius getBorderRadius(int currentIndex) {
-    if(isNearChosen(currentIndex)) {
-      switch(widget.index - currentIndex) {
+    if (isNearChosen(currentIndex)) {
+      switch (widget.index - currentIndex) {
         case -1:
           return BorderRadius.only(bottomRight: Radius.circular(8.w));
         case 1:
@@ -229,13 +218,13 @@ class _SecondLvlItemWidgetState extends State<SecondLvlItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 98.w, height: 50.w,
+      width: 98.w,
+      height: 50.w,
       decoration: BoxDecoration(
           // color: isChosen(value) ? Color(0xFFF7F7F7) : Colors.white,
           // borderRadius: getBorderRadius(value)
           color: Color(0xFFF7F7F7),
-          borderRadius: getBorderRadius(widget.index)
-      ),
+          borderRadius: getBorderRadius(widget.index)),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -245,11 +234,7 @@ class _SecondLvlItemWidgetState extends State<SecondLvlItemWidget> {
           //       child: VerticalLadderShapeIndicator(rect: SecondLvlItemWidget._shaderRect)),
           SizedBox(
             width: 70.w,
-            child: Text(
-                '哈哈哈哈',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
-                style: selectedStyle),
+            child: Text('哈哈哈哈', maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: selectedStyle),
           ),
         ],
       ),
@@ -261,18 +246,3 @@ class _SecondLvlItemWidgetState extends State<SecondLvlItemWidget> {
     // TODO: implement initData
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
